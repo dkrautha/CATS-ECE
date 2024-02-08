@@ -22,10 +22,11 @@ RUN pip3 install torch torchvision torchaudio
 # RUN python3 -m pip install ./torchvision-0.11.0a0+fa347eb-cp36-cp36m-linux_aarch64.whl
 WORKDIR /
 COPY requirements.txt .
-# RUN git clone https://github.com/WongKinYiu/yolov7.git
-# WORKDIR /yolov7
 RUN python3 -m pip install -r ./requirements.txt
-# RUN curl -LOJ https://github.com/WongKinYiu/yolov7/releases/download/v0.1/yolov7x.pt
+RUN git clone https://github.com/WongKinYiu/yolov7.git
+WORKDIR /yolov7
+RUN python3 -m pip install -r ./requirements.txt
+RUN curl -LOJ https://github.com/WongKinYiu/yolov7/releases/download/v0.1/yolov7x.pt
 
 COPY . .
 

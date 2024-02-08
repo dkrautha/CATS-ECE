@@ -3,7 +3,7 @@ import sys
 import torch
 import time
 # from utils.torch_utils import select_device, load_classifier, time_synchronized, TracedModel
-from utils.general import non_max_suppression, xyxy2xywh, check_img_size
+from utils.general import non_max_suppression, check_img_size
 # from models.experimental import attempt_load
 import glob
 import math
@@ -124,7 +124,8 @@ def scale_coords(img1_shape: torch.Size, coords: torch.Tensor, img0_shape: torch
 
 
 def plot_one_box(x: list, img: torch.Tensor,
-                 color: list[str | tuple[int, int, int]] | str | tuple[int, int, int] | None = None, label: str = None,
+                 color, #: list[str | tuple[int, int, int]] | str | tuple[int, int, int] | None = None, 
+                 label: str = None,
                  line_thickness: int = 3) -> torch.Tensor:
     img = torchvision.utils.draw_bounding_boxes(img, boxes=torch.Tensor([x], device='cpu'), labels=[label],
                                                 colors=color, width=line_thickness)
@@ -284,7 +285,79 @@ def process_model_output(img: torch.Tensor, img_og: torch.Tensor, pred: torch.Te
                     label = f'{names[int(cls)]} {conf:.2f}'
                     img_og = plot_one_box(xyxy, img_og, label=label, color=colors[int(cls)], line_thickness=3)
     return img_og, objects_detected
+"""
+def non_max_suppression(prediction, conf_thres=0.5, iou_thres=0.5):
+    
+    #Applies Non-Maximum Suppression (NMS) to prediction output.
+    
+    #Args:
+    #    prediction (torch.Tensor): Predictions from the model.
+    #    conf_thres (float): Confidence threshold.
+    #    iou_thres (float): IoU threshold.
+    
+    #Returns:
+    #    torch.Tensor: Filtered predictions after applying NMS.
+    
+    # Extract box coordinates, objectness score, and class score
+    box = prediction[:, :4]
+    conf = prediction[:, 4]
+    
+    # Filter out boxes with confidence score lower than threshold
+    mask = conf > conf_thres
+    box = box[mask]
+    conf = conf[mask]
+    
+    if not box.size(0):
+        return torch.tensor([])
+    
+    # Sort by objectness score
+    _, sort_idx = conf.sort(descending=True)
+    box = box[sort_idx]
+    
+    # Perform Non-Maximum Suppression
+    keep = []
+    while box.size(0):
+        # Pick box with highest confidence
+        pick = box[0].unsqueeze(0)
+        keep.append(pick)
+        
+        # Compute IoU with remaining boxes
+        if box.size(0) > 1:
+            overlap = bbox_iou(pick, box[1:])
+            mask = overlap <= iou_thres
+            box = box[1:][mask]
+        else:
+            break
+    
+    if keep:
+        return torch.cat(keep, dim=0)
+    else:
+        return torch.tensor([])
 
+def bbox_iou(box1, box2):
+    
+    #Compute the intersection over union (IoU) of two sets of boxes.
+    
+    #Args:
+    #    box1 (torch.Tensor): First set of boxes.
+    #    box2 (torch.Tensor): Second set of boxes.
+    
+    #Returns:
+    #    torch.Tensor: IoU between the boxes.
+    
+    # Get coordinates of intersection area
+    tl = torch.max(box1[:, None, :2], box2[:, :2])
+    br = torch.min(box1[:, None, 2:], box2[:, 2:])
+    area_intersection = torch.prod(br - tl, dim=2) * (tl < br).all(dim=2)
+    
+    # Compute area of each box
+    area_box1 = torch.prod(box1[:, 2:] - box1[:, :2], dim=1)
+    area_box2 = torch.prod(box2[:, 2:] - box2[:, :2], dim=1)
+    
+    # Compute IoU
+    iou = area_intersection / (area_box1[:, None] + area_box2 - area_intersection)
+    return iou
+"""
 
 def run_model_on_image(img: torch.Tensor) -> (torch.Tensor, torch.Tensor):
     global old_img_b, old_img_h, old_img_w
