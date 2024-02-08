@@ -232,11 +232,11 @@
 	<h1 class="py-5">Welcome Back, {userInfo.given_name}!</h1>
 	<span class="flex flex-col justify-center items-center py-6">
 		<p class="font-semibold text-2xl">
-			{#if images_perm3.images[0].camera}
+			<!-- {#if images_perm3.images[0].camera}
 			Site {images_perm3.images[0].camera}
 			{:else}
 			Site Default
-			{/if}
+			{/if} -->
 		</p>
 		<p class="text-xl">
 			Cats detected (per day)
@@ -282,7 +282,7 @@
 			  {#each images_perm3.images as image}
 			  <TableBodyRow>
 				<TableBodyCell>{dateFromObjectId2(image._id)}</TableBodyCell>
-				<TableBodyCell>{image.camera}</TableBodyCell>
+				<!-- <TableBodyCell>{image.camera}</TableBodyCell> -->
 				<TableBodyCell>{image.catIDs[0]}</TableBodyCell>
 				<TableBodyCell>{image.catIDs[1]}</TableBodyCell>
 				<TableBodyCell>{image.catIDs[2]}</TableBodyCell>
