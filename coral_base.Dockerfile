@@ -11,6 +11,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     wget=1.21-1+deb11u1 \
     gnupg=2.2.27-2+deb11u2 \
     git=1:2.30.2-1+deb11u2 \
+    python3-pip \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
@@ -22,3 +23,5 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     python3-pycoral \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
+
+RUN pip install tensorflow
