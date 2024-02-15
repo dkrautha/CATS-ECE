@@ -24,4 +24,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
-RUN pip install tensorflow
+RUN useradd -ms /bin/bash cats
+USER cats
+WORKDIR /home/cats
+
+RUN pip install -U tensorflow keras
