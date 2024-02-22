@@ -1,7 +1,7 @@
 FROM coral:latest
 
 RUN git clone https://github.com/google-coral/pycoral.git
-WORKDIR /pycoral 
+WORKDIR /pycoral
 RUN bash examples/install_requirements.sh classify_image.py
 
 CMD ["python3", \
