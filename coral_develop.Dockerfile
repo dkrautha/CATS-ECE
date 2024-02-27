@@ -5,3 +5,4 @@ USER cats
 WORKDIR /home/cats
 
 RUN pip install -U tensorflow keras
+RUN pip install -U opencv-python
