@@ -9,6 +9,8 @@
     "dockerfile": "../coral_develop.Dockerfile"
   },
 
+  "runArgs": ["--privileged", "-v", "/dev/video0:/dev/video0"],
+
   // Features to add to the dev container. More info: https://containers.dev/features.
   // "features": {},
 
