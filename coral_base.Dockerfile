@@ -22,6 +22,5 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libedgetpu1-std \
     python3-pycoral \
     python3-opencv \
-    python3-picamera2 \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
