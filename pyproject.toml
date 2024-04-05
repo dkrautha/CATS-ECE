@@ -1,0 +1,6 @@
+[tool.ruff]
+select = ["ALL"]
+
+[tool.ruff.format]
+quote-style = "double"
+docstring-code-format = true

@@ -9,7 +9,7 @@
     "dockerfile": "../coral_develop.Dockerfile"
   },
 
-  "runArgs": ["--privileged", "-v", "/dev/video0:/dev/video0"],
+  // "runArgs": ["--privileged", "-v", "/dev/video0:/dev/video0"],
 
   // Features to add to the dev container. More info: https://containers.dev/features.
   // "features": {},
@@ -26,7 +26,8 @@
       "extensions": [
         "ms-python.python",
         "codeium.codeium",
-        "charliermarsh.ruff"
+        "charliermarsh.ruff",
+        "ms-azuretools.vscode-docker"
       ]
     }
   },
