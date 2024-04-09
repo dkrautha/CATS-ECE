@@ -6,7 +6,7 @@ def main() -> None:
     with Path("/models/research/object_detection/packages/tf2/setup.py").open() as f:
         s = f.read()
 
-    with Path("/models/research/setup.py").open() as f:
+    with Path("/models/research/setup.py").open("w") as f:
         s = re.sub("tf-models-official>=2.5.1", "tf-models-official==2.8.0", s)
         f.write(s)
 
