@@ -14,4 +14,4 @@ build_all: build_cats_base build_coral_base build_coral_develop
 
 train: build_cats_base
     docker build -t train_model -f dockerfiles/train_model.Dockerfile .
-    docker run --rm -it train_model
+    docker run --rm -it -v $PWD/output:/training train_model
