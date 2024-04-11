@@ -10,5 +10,5 @@ cp -r /models/mymodel /training
 
 python3 /models/research/object_detection/export_tflite_graph_tf2.py \
     --trained_checkpoint_dir=/models/mymodel/ \
-    --output_directory=/training \
+    --output_directory=/training/mymodel \
     --pipeline_config_path=/models/mymodel/pipeline_file.config
