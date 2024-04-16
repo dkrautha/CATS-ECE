@@ -12,7 +12,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     gnupg=2.2.27-2+deb11u2 \
     git=1:2.30.2-1+deb11u2 \
     protobuf-compiler \
-    python3-pip \
+    python3-pip \ 
+    libgl1 \ 
+    libglib2.0-0 \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
@@ -25,3 +27,4 @@ RUN python3 /modify_tf.py
 
 RUN pip install /models/research/
 RUN pip install tensorflow==2.8.0
+RUN pip install Pillow==9.5.0
