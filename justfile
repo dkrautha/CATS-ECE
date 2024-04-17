@@ -12,6 +12,6 @@ build_coral_develop: build_coral_base
 
 build_all: build_cats_base build_coral_base build_coral_develop
 
-train: build_cats_base
+train extra_args="": build_cats_base
     docker build -t train_model -f dockerfiles/train_model.Dockerfile .
-    docker run --gpus all --rm -it -v $PWD/output:/training -v $PWD/scripts:/scripts train_model
+    docker run {{extra_args}} --rm -it -v $PWD/output:/training -v $PWD/scripts:/scripts train_model
