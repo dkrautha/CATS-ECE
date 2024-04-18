@@ -7,7 +7,11 @@ train_record_filename = "/train.tfrecord"
 validate_record_filename = "/val.tfrecord"
 label_map_filename = "/labelmap.pbtxt"
 
-model_name = "ssd_mobilenet_v2_320x320_coco17_tpu-8"
+# model_name = "ssd_mobilenet_v2_320x320_coco17_tpu-8"
+model_name = "ssd_mobilenet_v2_quantized_300x300_coco_2019_01_03"
+
+link = ""
+
 input_pipeline_name = f"{model_name}.config"
 pretrained_checkpoint = f"{model_name}.tar.gz"
 
@@ -19,7 +23,8 @@ fine_tune_checkpoint = f"/models/mymodel/{model_name}/checkpoint/ckpt-0"
 
 
 def download_model() -> None:
-    download_tar = f"http://download.tensorflow.org/models/object_detection/tf2/20200711/{pretrained_checkpoint}"
+    # download_tar = f"http://download.tensorflow.org/models/object_detection/tf2/20200711/{pretrained_checkpoint}"
+    download_tar = f"http://download.tensorflow.org/models/object_detection/{pretrained_checkpoint}"
     subprocess.run(["/usr/bin/wget", download_tar], check=True)  # noqa: S603
     tar = tarfile.open(pretrained_checkpoint)
     tar.extractall()  # noqa: S202
