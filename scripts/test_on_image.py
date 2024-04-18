@@ -120,8 +120,8 @@ class InterpreterWrapper:
 
         objects = []
         for i in range(count):
-            # if scores[i] < self._score_threshold:
-            #     continue
+            if scores[i] < self._score_threshold:
+                continue
 
             bb = bounding_boxes[i]
             ymin = int(bb[0] * self._expected_height)
