@@ -3,7 +3,7 @@ from pathlib import Path
 
 import tensorflow as tf
 
-path = "pic"
+path = "representative_dataset"
 
 
 def gen_data():
