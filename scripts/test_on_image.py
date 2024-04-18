@@ -1,12 +1,14 @@
 from __future__ import annotations  # noqa: INP001, D100
 
 import argparse
+import platform
 from dataclasses import dataclass
 from pathlib import Path
 
 import numpy as np
 from PIL import Image, ImageDraw
 from tflite_runtime.interpreter import Interpreter
+import tflite_runtime.interpreter
 
 
 def load_labels(file_path: Path) -> dict[int, str]:
@@ -61,8 +63,16 @@ class InterpreterWrapper:
         model_path: Path,
         label_map: dict[int, str],
         score_threshold: float,
+        edgetpu_lib: str | None = None,
     ) -> None:
-        self._interpreter = Interpreter(str(model_path))
+        self._interpreter = Interpreter(
+            model_path=str(model_path),
+            experimental_delegates=[
+                tflite_runtime.interpreter.load_delegate(edgetpu_lib, {}),
+            ]
+            if edgetpu_lib
+            else [],
+        )
         self._interpreter.allocate_tensors()
 
         input_details = self._interpreter.get_input_details()
@@ -110,8 +120,8 @@ class InterpreterWrapper:
 
         objects = []
         for i in range(count):
-            if scores[i] < self._score_threshold:
-                continue
+            # if scores[i] < self._score_threshold:
+            #     continue
 
             bb = bounding_boxes[i]
             ymin = int(bb[0] * self._expected_height)
@@ -168,13 +178,22 @@ def main() -> None:
         help="labels path in pbtxt format",
     )
     parser.add_argument("--output_path", "-o", type=Path, help="output jpg path")
+    parser.add_argument("--edgetpu", "-e", action="store_true")
     args = parser.parse_args()
 
     labels = load_labels(args.labels_path)
+
     interpreter = InterpreterWrapper(
         model_path=args.model_path,
         label_map=labels,
         score_threshold=0.8,
+        edgetpu_lib={
+            "Linux": "libedgetpu.so.1",
+            "Darwin": "libedgetpu.1.dylib",
+            "Windows": "edgetpu.dll",
+        }[platform.system()]
+        if args.edgetpu
+        else None,
     )
 
     img_path = Path(args.input_path)
