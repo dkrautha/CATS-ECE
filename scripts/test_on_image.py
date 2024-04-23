@@ -186,7 +186,7 @@ def main() -> None:
     interpreter = InterpreterWrapper(
         model_path=args.model_path,
         label_map=labels,
-        score_threshold=0.8,
+        score_threshold=0.70,
         edgetpu_lib={
             "Linux": "libedgetpu.so.1",
             "Darwin": "libedgetpu.1.dylib",
