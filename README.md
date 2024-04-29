@@ -1,6 +1,30 @@
 # C.A.T.S - Camera Assisted Tracking System
 
-## Overview
+> Stray Cat Tracking in the AI Age
+
+## Abstract
+
+The growing population of stray cats presents a significant challenge for
+communities across the United States, with an estimated 1.3 million roaming the
+streets of New Jersey alone, and a whopping 70 million nationwide. Addressing
+this issue has typically relied on labor-intensive and costly efforts, with
+Trap, Neuter, Release (TNR) programs emerging as the most progressive and humane
+approach. However, the success of TNR is reduced by the nomadic nature of stray
+cats, requiring workers to manually locate and trap large populations. In a
+revolutionary stride towards more efficient and cost-effective solutions, the
+emergence of the Camera Assisted Tracking System (C.A.T.S.) promises to
+transform the landscape of stray cat management. C.A.T.S. is an innovative
+AI-based camera system designed to effectively identify and track stray cat
+populations within a given community. This new technology aims to automate the
+tracking process, greatly reducing costs and simplifying the difficult work
+undertaken by animal control groups. At the core of C.A.T.S. is its AI
+algorithms, capable of recognizing and analyzing stray cat patterns with great
+accuracy. The system utilizes well placed cameras equipped with advanced image
+recognition capabilities, ensuring thorough coverage of target areas. As stray
+cats traverse their territories, C.A.T.S. captures their movements, creating a
+detailed and real-time database of their locations.
+
+## Our Contributions
 
 This is a continuation of the a previous senior design project, which you can
 find [here](https://github.com/A-very-Cunning-ham/CATS). Credit for the original
@@ -14,6 +38,12 @@ using TensorFlow (Lite). To increase the accuracy we trained the model to
 identify not just cats, but other animals which could be easily mistaken by a
 computer for a cat. The expectation was that this would reduce the false
 positive rate, and increase the accuracy of the model overall.
+
+The poster we created for the Stevens Innovation Expo can be found
+[here](./CATS%20Innovation%20Expo%20Poster.pdf).
+
+The website we created for Senior Design (D7 and D8) can be found
+[here](https://sites.google.com/stevens.edu/cats/abstract?authuser=1).
 
 ## Dataset Sources
 
